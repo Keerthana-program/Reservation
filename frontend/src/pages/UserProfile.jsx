@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
-
+const API_URL = import.meta.env.VITE_API_URL;
 const UserProfile = () => {
   const { user } = useAuth();  
   const [userName, setUserName] = useState(localStorage.getItem("userName") || "Guest");
@@ -25,7 +25,7 @@ const UserProfile = () => {
 
         console.log("Fetching bookings with token:", token);
 
-        const response = await fetch(`http://localhost:5000/api/bookings/my-bookings`, {
+        const response = await fetch(`${API_URL}/api/bookings/my-bookings`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`, // Send token in headers
@@ -57,7 +57,7 @@ const UserProfile = () => {
     
     try {
       const token = localStorage.getItem("token"); // Ensure token is included for DELETE
-      const response = await fetch(`http://localhost:5000/api/bookings/${bookingId}`, {
+      const response = await fetch(`${API_URL}/api/bookings/${bookingId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

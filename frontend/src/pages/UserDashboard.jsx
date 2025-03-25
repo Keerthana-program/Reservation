@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import NavUser from "../components/NavUser";
-
+const API_URL = import.meta.env.VITE_API_URL;
 
 const UserDashboard = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -16,7 +16,7 @@ const UserDashboard = () => {
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/restaurants/all", {
+        const response = await fetch(`${API_URL}/api/restaurants/all`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         });
@@ -121,7 +121,7 @@ const UserDashboard = () => {
                       restaurant.images && restaurant.images.length > 0
                         ? restaurant.images[0].startsWith("http")
                           ? restaurant.images[0]
-                          : `http://localhost:5000${restaurant.images[0]}`
+                          : `${API_URL}${restaurant.images[0]}`
                         : "/placeholder.jpg"
                     }
                     alt={restaurant.name}

@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import NavLogin from "../components/NavLogin";
-
+const API_URL = import.meta.env.VITE_API_URL;
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
+ 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -16,9 +16,9 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+   
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -57,6 +57,8 @@ const Login = () => {
       console.error("Error:", error);
       alert("Something went wrong!");
     }
+    console.log("API_URL:", API_URL); // ✅ Check if it logs the correct backend URL
+    
   };
 
   return (

@@ -6,6 +6,7 @@ const Pay = () => {
   const location = useLocation();
   const { userId, restaurantId, date, time, seats, amount } = location.state || {};
   console.log("Payment Page State:", location.state);
+  const API_URL = import.meta.env.VITE_API_URL;
   useEffect(() => {
     if (!amount) {
       navigate("/");
@@ -14,7 +15,7 @@ const Pay = () => {
 
   const handlePayment = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/payment", {
+      const response = await fetch(`${API_URL}/api/payment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ amount, currency: "INR" }),
@@ -33,7 +34,7 @@ const Pay = () => {
           alert("Payment Successful!");
 
           // Save booking to the database
-          await fetch("http://localhost:5000/api/booking/save", {
+          await fetch(`${API_URL}/api/booking/save`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

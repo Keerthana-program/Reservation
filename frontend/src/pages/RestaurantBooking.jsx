@@ -12,7 +12,7 @@ const RestaurantBooking = () => {
   const [time, setTime] = useState("");
   const [selectedSeats, setSelectedSeats] = useState(1);
   const [availableSeats, setAvailableSeats] = useState(12);
-
+  const API_URL = import.meta.env.VITE_API_URL;
   const seatPrice = 100;
   const totalCost = selectedSeats * seatPrice;
 
@@ -34,7 +34,7 @@ const RestaurantBooking = () => {
   useEffect(() => {
     const fetchAvailableSeats = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/bookings/${id}/availability`);
+        const response = await fetch(`${API_URL}/api/bookings/${id}/availability`);
         if (response.ok) {
           const data = await response.json();
           setAvailableSeats(data.availableSeats);
@@ -80,7 +80,7 @@ const RestaurantBooking = () => {
       const token = localStorage.getItem("token");
 
       // Create Razorpay Order
-      const response = await fetch("http://localhost:5000/api/payment", {
+      const response = await fetch(`${API_URL}/api/payment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ amount: totalCost, currency: "INR" }),
@@ -100,7 +100,7 @@ const RestaurantBooking = () => {
 
           // Save booking after successful payment
           const confirmationCode = `RES-${Date.now()}`;
-          const bookingResponse = await fetch("http://localhost:5000/api/bookings", {
+          const bookingResponse = await fetch(`${API_URL}/api/bookings`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

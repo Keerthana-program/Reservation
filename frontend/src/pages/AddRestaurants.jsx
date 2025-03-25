@@ -15,6 +15,7 @@ const AddRestaurants = () => {
   const [uploadedImages, setUploadedImages] = useState([]);
   const { owner } = useAuth();
   const token = localStorage.getItem("token");
+  const API_URL = import.meta.env.VITE_API_URL;
 
   // Handle adding a new menu item
   const addMenuItem = () => {
@@ -67,7 +68,7 @@ const AddRestaurants = () => {
       formData.append("image", file);
 
       try {
-        const response = await fetch("http://localhost:5000/api/restaurants/upload", {
+        const response = await fetch(`${API_URL}/api/restaurants/upload`, {
           method: "POST",
           body: formData,
         });
@@ -115,7 +116,7 @@ const AddRestaurants = () => {
         return;
       }
   
-      const response = await fetch("http://localhost:5000/api/restaurants/add", {
+      const response = await fetch(`${API_URL}/api/restaurants/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
-
+const API_URL = import.meta.env.VITE_API_URL;
 const StarRating = ({ rating, setRating }) => {
   return (
     <div className="flex space-x-1">
@@ -34,7 +34,7 @@ const RestaurantReview = () => {
 
   const fetchReviews = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/restaurants/${id}/reviews`);
+      const response = await fetch(`${API_URL}/api/restaurants/${id}/reviews`);
       const data = await response.json();
       setReviews(data);
     } catch (error) {
@@ -66,7 +66,7 @@ const RestaurantReview = () => {
         requestBody = JSON.stringify({ text: newReview.text, rating: newReview.rating });
       }
   
-      const response = await fetch(`http://localhost:5000/api/restaurants/${id}/reviews`, {
+      const response = await fetch(`${API_URL}/api/restaurants/${id}/reviews`, {
         method: "POST",
         headers,
         body: requestBody, // ✅ This will be FormData or JSON based on condition
@@ -92,7 +92,7 @@ const RestaurantReview = () => {
       return;
     }
     try {
-      const response = await fetch(`http://localhost:5000/api/restaurants/${id}/reviews/${reviewId}`, {
+      const response = await fetch(`${API_URL}/api/restaurants/${id}/reviews/${reviewId}`, {
         method: "DELETE",
         headers: { "Authorization": `Bearer ${token}` },
       });
@@ -126,7 +126,7 @@ const RestaurantReview = () => {
         requestBody = JSON.stringify({ text: newReview.text, rating: newReview.rating });
       }
 
-      const response = await fetch(`http://localhost:5000/api/restaurants/${id}/reviews/${reviewId}`, {
+      const response = await fetch(`${API_URL}/api/restaurants/${id}/reviews/${reviewId}`, {
         method: "PUT",
         headers,
         body: requestBody,
@@ -191,7 +191,7 @@ const RestaurantReview = () => {
           <p className="font-bold">Rating: {review.rating}/5</p>
           {review.image && (
             <img
-              src={`http://localhost:5000${review.image}`}
+              src={`${API_URL}${review.image}`}
               alt="Review"
               className="mt-2 w-32 h-32 object-cover rounded"
             />

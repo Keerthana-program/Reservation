@@ -6,13 +6,13 @@ import Navbar from "../components/Navbar";
 const RestaurantDetails = () => {
   const { id } = useParams();
   const [restaurant, setRestaurant] = useState(null);
-
+  const API_URL = import.meta.env.VITE_API_URL;
   useEffect(() => {
     console.log("Fetching restaurant with ID:", id); // ✅ Debugging
 
     const fetchRestaurant = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/restaurants/${id}`, {
+        const response = await fetch(`${API_URL}/api/restaurants/${id}`, {
           method: "GET",
           headers: { "Content-Type": "application/json" }
         });
@@ -51,7 +51,7 @@ const RestaurantDetails = () => {
     }
   
     try {
-      const response = await fetch(`http://localhost:5000/api/restaurants/${restaurantId}/reviews`, {
+      const response = await fetch(`${API_URL}/api/restaurants/${restaurantId}/reviews`, {
         method: "POST",
         body: formData,
       });
@@ -77,7 +77,7 @@ const RestaurantDetails = () => {
             restaurant.images && restaurant.images.length > 0 
               ? restaurant.images[0].startsWith("http")
                 ? restaurant.images[0]
-                : `http://localhost:5000${restaurant.images[0]}`
+                : `${API_URL}${restaurant.images[0]}`
               : "/placeholder.jpg"
           }
           alt={restaurant.name}

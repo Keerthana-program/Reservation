@@ -5,6 +5,7 @@ const OwnerReviews = () => {
   const [reviews, setReviews] = useState([]);
   const [responseText, setResponseText] = useState("");  // Input for the owner's response
   const [respondingReviewId, setRespondingReviewId] = useState(null); // Which review is being responded to
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     fetchReviews();
@@ -13,7 +14,7 @@ const OwnerReviews = () => {
   const fetchReviews = async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("http://localhost:5000/api/owners/reviews", {
+      const response = await fetch(`${API_URL}/api/owners/reviews`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -34,7 +35,7 @@ const OwnerReviews = () => {
   const handleRespond = async (reviewId) => {
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch(`http://localhost:5000/api/owners/reviews/${reviewId}/respond`, {
+      const response = await fetch(`${API_URL}/api/owners/reviews/${reviewId}/respond`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -66,7 +67,7 @@ const OwnerReviews = () => {
                 <p className="font-bold">Rating: {review.rating}/5</p>
                 {review.image && (
                   <img
-                    src={`http://localhost:5000${review.image}`}
+                    src={`${API_URL}${review.image}`}
                     alt="Review"
                     className="mt-2 w-20 h-20 object-cover rounded"
                   />

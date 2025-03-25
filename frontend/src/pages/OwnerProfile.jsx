@@ -6,12 +6,13 @@ import { useAuth } from "../context/AuthContext";
 const OwnerProfile = () => {
   const [restaurants, setRestaurants] = useState([]);
   const { owner } = useAuth();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:5000/api/restaurants/owner", {
+        const response = await fetch(`${API_URL}/api/restaurants/owner`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -35,7 +36,7 @@ const OwnerProfile = () => {
   const handleDelete = async (restaurantId) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:5000/api/restaurants/${restaurantId}`, {
+      const response = await fetch(`${API_URL}/api/restaurants/${restaurantId}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -96,7 +97,7 @@ const OwnerProfile = () => {
                     {restaurant.images.map((img, index) => (
                       <img
                         key={index}
-                        src={img.startsWith("http") ? img : `http://localhost:5000${img}`}
+                        src={img.startsWith("http") ? img : `${API_URL}${img}`}
                         alt="Restaurant"
                         className="w-20 h-20 object-cover rounded"
                       />
