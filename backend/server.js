@@ -28,14 +28,15 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:3000", "http://localhost:5173", "https://musical-sfogliatella-e81d3e.netlify.app"], // Allow frontend to connect
+    origin: "https://dreamy-sawine-9424af.netlify.app", // Allow frontend to connect
     methods: ["GET", "POST"]
   },
 });
 app.use(express.json()); // Middleware to parse JSON
-app.use(cors({ origin: ["http://localhost:3000", "http://localhost:5173"], credentials: true }));
+app.use(cors({ origin: "https://dreamy-sawine-9424af.netlify.app", credentials: true }));
 
-
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:5000";
 
 
  // Enable CORS
