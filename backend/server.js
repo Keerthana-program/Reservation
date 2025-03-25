@@ -28,7 +28,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:3000", "http://localhost:5173"], // Allow frontend to connect
+    origin: ["http://localhost:3000", "http://localhost:5173", "https://musical-sfogliatella-e81d3e.netlify.app"], // Allow frontend to connect
     methods: ["GET", "POST"]
   },
 });
