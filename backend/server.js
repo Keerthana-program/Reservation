@@ -33,7 +33,11 @@ const io = new Server(server, {
   },
 });
 app.use(express.json()); // Middleware to parse JSON
-app.use(cors({ origin: "https://dreamy-sawine-9424af.netlify.app", credentials: true }));
+app.use(cors({
+  origin: 'https://cosmic-syrniki-a578fe.netlify.app', // Allow your frontend
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific methods
+  credentials: true // Allow cookies/auth headers
+}))
 
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
 const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:5000";
