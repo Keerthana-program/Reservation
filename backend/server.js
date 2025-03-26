@@ -30,7 +30,7 @@ const server = http.createServer(app);
 // Define your allowed origins
 const allowedOrigins = [
   "https://dreamy-sawine-9424af.netlify.app",
-  "https://astounding-faun-baa021.netlify.app",
+  "https://reserve-your-spot.netlify.app",
   "https://cosmic-syrniki-a578fe.netlify.app",
   "http://localhost:5173"
 ];
